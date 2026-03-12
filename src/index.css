@@ -197,6 +197,7 @@ body {
   background: radial-gradient(ellipse at center, #ffb7c5 0%, #ff9eb5 60%, transparent 100%);
   border-radius: 50% 0 50% 0;
   animation: petalFall linear infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes petalFall {

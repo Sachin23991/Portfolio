@@ -38,8 +38,8 @@ const scaleIn = {
     },
 };
 const heroChild = {
-    hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
-    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.9, ease: smoothEase } },
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: smoothEase } },
 };
 const heroStagger = {
     hidden: {},
@@ -183,7 +183,7 @@ function App() {
 
     const petalStyles = useMemo(
         () =>
-            Array.from({ length: 25 }, () => ({
+            Array.from({ length: 18 }, () => ({
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 12}s`,
                 animationDuration: `${14 + Math.random() * 10}s`,
@@ -211,7 +211,7 @@ function App() {
 
         // Lenis smooth scroll
         const lenis = new Lenis({
-            duration: 1.4,
+            duration: 0.9,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
         });

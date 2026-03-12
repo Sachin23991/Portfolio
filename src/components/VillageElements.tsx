@@ -52,19 +52,19 @@ export function CherryTree({ position, scale = 1 }: { position: [number, number,
                 <meshStandardMaterial color="#5c3317" roughness={0.9} />
             </mesh>
             <mesh position={[0, 3.8, 0]}>
-                <sphereGeometry args={[1.3, 12, 12]} />
+                <sphereGeometry args={[1.3, 8, 8]} />
                 <meshStandardMaterial color="#ffb7c5" transparent opacity={0.85} roughness={0.8} />
             </mesh>
             <mesh position={[0.7, 3.4, 0.4]}>
-                <sphereGeometry args={[0.8, 10, 10]} />
+                <sphereGeometry args={[0.8, 7, 7]} />
                 <meshStandardMaterial color="#ff9eb5" transparent opacity={0.8} roughness={0.8} />
             </mesh>
             <mesh position={[-0.6, 3.5, -0.3]}>
-                <sphereGeometry args={[0.9, 10, 10]} />
+                <sphereGeometry args={[0.9, 7, 7]} />
                 <meshStandardMaterial color="#ffc8d6" transparent opacity={0.8} roughness={0.8} />
             </mesh>
             <mesh position={[0.2, 4.2, -0.2]}>
-                <sphereGeometry args={[0.7, 8, 8]} />
+                <sphereGeometry args={[0.7, 6, 6]} />
                 <meshStandardMaterial color="#ffccd5" transparent opacity={0.75} roughness={0.8} />
             </mesh>
         </group>
@@ -72,25 +72,29 @@ export function CherryTree({ position, scale = 1 }: { position: [number, number,
 }
 
 /* ═══ CHERRY BLOSSOM PARTICLES ═══ */
-export function CherryBlossomParticles({ count = 250 }: { count?: number }) {
+export function CherryBlossomParticles({ count = 150 }: { count?: number }) {
     const ref = useRef<THREE.Points>(null);
-    const positions = useMemo(() => {
+    // Pre-compute per-particle phase offsets so we avoid heavy sin() in the hot loop
+    const { positions, phaseOffsets } = useMemo(() => {
         const pos = new Float32Array(count * 3);
+        const phases = new Float32Array(count);
         for (let i = 0; i < count; i++) {
             pos[i * 3] = (Math.random() - 0.5) * 30;
             pos[i * 3 + 1] = Math.random() * 12 + 0.5;
             pos[i * 3 + 2] = (Math.random() - 0.5) * 100 - 25;
+            phases[i] = i * 0.1;
         }
-        return pos;
+        return { positions: pos, phaseOffsets: phases };
     }, [count]);
 
-    useFrame((state) => {
+    useFrame((state, delta) => {
         if (!ref.current) return;
         const arr = ref.current.geometry.attributes.position.array as Float32Array;
-        const t = state.clock.elapsedTime;
+        const t = state.clock.elapsedTime * 0.5;
+        const fallSpeed = 0.007 * (delta / 0.016); // frame-rate independent fall
         for (let i = 0; i < count; i++) {
-            arr[i * 3 + 1] -= 0.007;
-            arr[i * 3] += Math.sin(t * 0.5 + i * 0.1) * 0.003;
+            arr[i * 3 + 1] -= fallSpeed;
+            arr[i * 3] += Math.sin(t + phaseOffsets[i]) * 0.003;
             if (arr[i * 3 + 1] < 0) arr[i * 3 + 1] = 12;
         }
         ref.current.geometry.attributes.position.needsUpdate = true;
