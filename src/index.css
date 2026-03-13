@@ -699,13 +699,19 @@ body {
 .achievements-section {
   position: relative; z-index: 10;
   width: 100%; padding: 6rem 2rem;
-  background: transparent;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 183, 197, 0.08), transparent 42%),
+    radial-gradient(circle at 82% 78%, rgba(245, 208, 169, 0.07), transparent 44%),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(14, 9, 15, 0.96) 50%, rgba(10, 10, 10, 0.98) 100%);
 }
 .achievements-section .section-bg {
   opacity: 0.7;
 }
-.achievements-section .section-overlay.dark {
-  background: linear-gradient(to bottom, var(--bg-primary) 0%, rgba(10,10,10,0.5) 20%, rgba(10,10,10,0.5) 80%, var(--bg-primary) 100%);
+.achievements-section .section-overlay.achievements-tint {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 183, 197, 0.14), transparent 45%),
+    radial-gradient(circle at 80% 75%, rgba(245, 208, 169, 0.1), transparent 45%),
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.85) 0%, rgba(18, 12, 16, 0.62) 24%, rgba(18, 12, 16, 0.62) 76%, rgba(10, 10, 10, 0.9) 100%);
 }
 .achievements-grid {
   display: grid;
@@ -714,7 +720,7 @@ body {
 }
 .achievement-card {
   display: flex; align-items: flex-start; gap: 1rem;
-  background: var(--bg-card);
+  background: linear-gradient(145deg, rgba(21, 14, 24, 0.86), rgba(12, 9, 16, 0.8));
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -836,41 +842,6 @@ body {
   margin-top: auto; width: 100%;
 }
 
-
-/* ═══ PARALLAX BACKGROUNDS ═══ */
-.parallax-section {
-  position: relative;
-  overflow: hidden;
-  padding: 8rem 2rem;
-  width: 100%;
-}
-.section-bg {
-  position: absolute;
-  inset: -10%;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-  opacity: 0.25; /* ensures image visibility when overlay is applied */
-}
-.section-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-.section-overlay.dark {
-  background: linear-gradient(to bottom, var(--bg-primary) 0%, transparent 20%, transparent 80%, var(--bg-primary) 100%);
-}
-.section-overlay.mystical {
-  background: linear-gradient(180deg, rgba(12,12,18,0.95) 0%, rgba(255,183,197,0.05) 50%, rgba(12,12,18,0.95) 100%);
-  backdrop-filter: blur(4px);
-}
-.section-content {
-  position: relative;
-  z-index: 5;
-  width: 100%;
-  max-width: var(--content-max);
-  margin: 0 auto;
-}
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 768px) {

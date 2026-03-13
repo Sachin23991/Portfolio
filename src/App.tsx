@@ -337,7 +337,7 @@ const PROJECTS = [
         impact: '🎯 AI-powered career platform with live mentorship',
         desc: 'All-in-One AI-Powered Career Platform featuring an intelligent ATS resume builder, Sancara AI career co-pilot, and robust mentorship connections.',
         tags: ['React', 'TypeScript', 'Tailwind CSS', 'Firebase', 'AI'],
-        github: null, live: 'https://careerflow-nextgen-landing.vercel.app/',
+        github: 'https://github.com/Sachin23991/careerflow-nextgen-landing', live: 'https://careerflow-nextgen-landing.vercel.app/',
     },
     {
         title: 'UPI Transaction Analytics', category: 'Data Analytics', difficulty: 'Advanced',
@@ -351,7 +351,7 @@ const PROJECTS = [
         impact: '🔄 Spaced repetition engine for 300+ problems',
         desc: 'Comprehensive DSA practice tracking platform featuring a spaced repetition engine, robust analytics, and gamification with XP, levels, and badges.',
         tags: ['HTML/CSS/JS', 'Firebase', 'Spaced Repetition'],
-        github: 'https://github.com/Sachin23991/DSA-REVISOR', live: 'https://github.com/Sachin23991/DSA-REVISOR',
+        github: 'https://github.com/Sachin23991/DSA-REVISOR', live:'https://sachin23991.github.io/DSA-REVISOR/',
     },
     {
         title: 'Grievance Reporter', category: 'Full-Stack', difficulty: 'Intermediate',
@@ -372,7 +372,7 @@ const PROJECTS = [
         impact: '🍹 AI-driven health awareness with gamified challenges',
         desc: 'AI-powered health awareness platform educating users about sugary drinks. Features interactive sugar visualizations, gamified daily challenges, and an AI-driven wellness chatbot.',
         tags: ['Node.js', 'Express.js', 'Firebase', 'Perplexity AI'],
-        github: 'https://github.com/Sachin23991/sipwise', live: null,
+        github: 'https://github.com/Sachin23991/sipwise', live: 'https://sachin23991.github.io/sipwise/',
     },
 ];
 
@@ -747,9 +747,17 @@ function App() {
             </section>
 
             {/* ═══ ACHIEVEMENTS & CERTIFICATIONS ═══ */}
-            <section className="achievements-section parallax-section" id="achievements">
-                <div className="section-bg" style={{ backgroundImage: "url('/experience-bg.png')" }} />
-                <div className="section-overlay dark" />
+            <section className="achievements-section parallax-section" id="achievements" style={{
+                backgroundImage: "url('/experience-bg.png)"
+            }}>
+                <div className="section-bg" style={{
+                    backgroundImage: "url('/projects-bg.png')",
+                    opacity: 0.75,
+                    filter: 'saturate(1.4) contrast(1.15) brightness(1.08)'
+                }} />
+                <div className="section-overlay achievements-tint" style={{
+                    background: 'linear-gradient(to bottom, rgba(32, 18, 40, 0.32) 0%, rgba(210, 197, 216, 0.2) 50%, rgba(28, 14, 36, 0.38) 100%)'
+                }} />
                 <div className="section-content">
                     <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                         <AnimatedTitle className="section-title">Achievements</AnimatedTitle>
@@ -757,7 +765,10 @@ function App() {
                     </div>
                     <motion.div className="achievements-grid" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                         {ACHIEVEMENTS.map(a => (
-                            <motion.div key={a.title} className="achievement-card" variants={scaleIn} whileHover={{ y: -4, borderColor: 'var(--border-hover)' }}>
+                            <motion.div key={a.title} className="achievement-card" variants={scaleIn} whileHover={{ y: -4, borderColor: 'var(--border-hover)' }} style={{
+                                background: 'rgba(32, 18, 40, 0.72)',
+                                borderColor: 'rgba(255, 183, 197, 0.18)'
+                            }}>
                                 <div className="achievement-icon">{a.icon}</div>
                                 <div className="achievement-info">
                                     <span className="achievement-year">{a.year}</span>
@@ -774,7 +785,10 @@ function App() {
                     </div>
                     <motion.div className="achievements-grid" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                         {CERTIFICATIONS.map(a => (
-                            <motion.div key={a.title} className="achievement-card" variants={scaleIn} whileHover={{ y: -4, borderColor: 'var(--border-hover)' }}>
+                            <motion.div key={a.title} className="achievement-card" variants={scaleIn} whileHover={{ y: -4, borderColor: 'var(--border-hover)' }} style={{
+                                background: 'rgba(28, 21, 44, 0.74)',
+                                borderColor: 'rgba(126, 184, 255, 0.2)'
+                            }}>
                                 <div className="achievement-icon">{a.icon}</div>
                                 <div className="achievement-info">
                                     <span className="achievement-year">{a.year}</span>
