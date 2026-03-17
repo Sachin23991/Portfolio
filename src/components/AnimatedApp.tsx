@@ -10,17 +10,19 @@ import {
 } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
 import emailjs from '@emailjs/browser';
+import { Download, FolderOpen, MessageCircleMore } from 'lucide-react';
 
 // Import custom components
 import { ParticleField } from './ParticleField';
 import { CustomCursor, Spotlight } from './MagneticCursor';
 import { GlassCard, FloatingCard } from './HolographicCard';
-import { KineticTitle, TickerCounter, ScrambleText } from './KineticTypography';
+import { KineticTitle, TickerCounter } from './KineticTypography';
 import { TypingAnimation } from './TypingAnimation';
 import { CipherText } from './CipherText';
 import { ScrollytellingReveal } from './ScrollytellingReveal';
 import { MorphingTransition } from './MorphingTransitions';
 import { CertificatesPage } from './CertificatesPage';
+import { IconFooterNav } from './IconFooterNav';
 
 /* ─── Animation Variants ─── */
 const smoothEase = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number];
@@ -415,7 +417,7 @@ export default function AnimatedApp() {
     const scrollTo = useCallback((id: string) => {
         const target = document.getElementById(id);
         if (target && lenisRef.current) {
-            lenisRef.current.scrollTo(target, { offset: -80, duration: 1.6 });
+            lenisRef.current.scrollTo(target, { offset: -20, duration: 1.6 });
         }
     }, []);
 
@@ -483,27 +485,21 @@ export default function AnimatedApp() {
                 {showCertificatesPage && <CertificatesPage onClose={() => setShowCertificatesPage(false)} />}
             </AnimatePresence>
 
-            {/* Navbar */}
-            <motion.nav className="navbar" id="navbar" initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: smoothEase, delay: 0.2 }}>
-                <motion.span className="nav-brand" whileHover={{ scale: 1.1 }} transition={{ type: 'spring', stiffness: 400 }}>
-                    <ScrambleText text="SR" speed={30} />
-                </motion.span>
-                <div className="nav-links">
-                    {['Home', 'Stats', 'Certificates', 'About', 'Skills', 'Projects', 'Contact'].map((label, i) => (
-                        <motion.a key={label} href={`#${label === 'Home' ? 'entrance' : label.toLowerCase()}`} className="nav-link"
-                            initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.06 }}
-                            whileHover={{ y: -2 }} onClick={(e) => {
-                                e.preventDefault();
-                                if (label === 'Stats') { setShowStatsPage(true); setShowCertificatesPage(false); }
-                                else if (label === 'Certificates') { setShowCertificatesPage(true); setShowStatsPage(false); }
-                                else { setShowStatsPage(false); setShowCertificatesPage(false); scrollTo(label === 'Home' ? 'entrance' : label.toLowerCase()); }
-                            }}>
-                            {label}
-                        </motion.a>
-                    ))}
-                </div>
-                <MagneticButton href="/sachincv.pdf" download className="nav-resume-btn">Resume</MagneticButton>
-            </motion.nav>
+            <IconFooterNav onNavigate={(id) => {
+                if (id === 'stats') {
+                    setShowStatsPage(true);
+                    setShowCertificatesPage(false);
+                    return;
+                }
+                if (id === 'certificates') {
+                    setShowCertificatesPage(true);
+                    setShowStatsPage(false);
+                    return;
+                }
+                setShowStatsPage(false);
+                setShowCertificatesPage(false);
+                scrollTo(id);
+            }} />
 
             {/* Hero Section */}
             <section className="entrance-section" id="entrance">
@@ -516,16 +512,61 @@ export default function AnimatedApp() {
                     <motion.p className="welcome-text" variants={heroChild}>
                         <TypingAnimation texts={['Welcome', 'Hello', 'Namaste']} typingSpeed={150} deletingSpeed={80} pauseDuration={1500} showCursor={false} />
                     </motion.p>
-                    <motion.div className="profile-frame" variants={heroChild} style={{ margin: '0 auto 1.5rem auto' }}>
-                        <div className="profile-ring" />
-                        <img src="/profile.png" alt="Sachin" className="profile-image" />
+
+                    <motion.div className="hero-visual-row" variants={heroChild}>
+                        <div className="hero-profile-block">
+                            <motion.div className="profile-frame" whileHover={{ y: -4, scale: 1.02 }} transition={{ type: 'spring', stiffness: 220, damping: 18 }}>
+                                <div className="profile-ring" />
+                                <img src="/profile.png" alt="Sachin" className="profile-image" />
+                            </motion.div>
+                        </div>
+
+                        <motion.div className="hero-illustration-panel" whileHover={{ y: -4 }} transition={{ type: 'spring', stiffness: 220, damping: 20 }}>
+                            <img src="/coder.svg" alt="Coding illustration" className="hero-illustration" loading="lazy" />
+                        </motion.div>
                     </motion.div>
+
                     <motion.h1 className="hero-name" variants={heroChild}>
                         <CipherText text="Sachin Rao" speed={80} maxIterations={25} revealDelay={500} />
                     </motion.h1>
-                    <motion.p className="hero-description" variants={heroChild} style={{ fontSize: '14px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
-                        <TypingAnimation texts={['I am a backend and ML/Data Science enthusiast', 'Passionate about building intelligent systems', 'Building AI-powered products that ship']} typingSpeed={60} deletingSpeed={40} pauseDuration={3000} wrapperElement="span" />
+
+                    <motion.p className="hero-description" variants={heroChild} style={{ fontSize: '14px', maxWidth: '760px', margin: '0 auto', lineHeight: '1.72', color: 'var(--text-primary)', fontWeight: 700 }}>
+                        I build production-ready AI features, modern full-stack products, and analytics systems that solve real business problems. This portfolio is my live resume with projects, outcomes, and direct ways to connect.
                     </motion.p>
+
+                    <motion.div className="hero-action-grid" variants={heroChild}>
+                        <motion.button
+                            className="hero-action-btn hero-action-primary"
+                            whileHover={{ y: -2 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => scrollTo('projects')}
+                            type="button"
+                        >
+                            <FolderOpen size={16} />
+                            Explore Projects
+                        </motion.button>
+                        <motion.button
+                            className="hero-action-btn hero-action-secondary"
+                            whileHover={{ y: -2 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => scrollTo('contact')}
+                            type="button"
+                        >
+                            <MessageCircleMore size={16} />
+                            Contact Me
+                        </motion.button>
+                        <motion.a
+                            className="hero-action-btn hero-action-ghost"
+                            whileHover={{ y: -2 }}
+                            whileTap={{ scale: 0.97 }}
+                            href="/sachincv.pdf"
+                            download
+                        >
+                            <Download size={16} />
+                            Download CV
+                        </motion.a>
+                    </motion.div>
+
                     <motion.div className="scroll-indicator" variants={heroChild} animate={{ y: [0, 8, 0] }} transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }} style={{ marginTop: '3rem' }}>
                         <span className="scroll-text">Scroll to explore</span>
                         <div className="scroll-arrow" />
@@ -757,8 +798,10 @@ export default function AnimatedApp() {
                         <p className="contact-text">Have a project in mind or want to collaborate? I'd love to hear from you!</p>
                         <ContactForm />
                         <div className="contact-links">
-                            <a href="mailto:sachin@example.com" className="contact-link-card"><span className="contact-icon">📧</span><div className="contact-link-info"><span>Email</span><strong>sachin@example.com</strong></div></a>
+                            <a href="mailto:sachinraosahab7@gmail.com" className="contact-link-card"><span className="contact-icon">📧</span><div className="contact-link-info"><span>Email</span><strong>sachinraosahab7@gmail.com</strong></div></a>
                             <a href="https://github.com/Sachin23991" target="_blank" rel="noreferrer" className="contact-link-card"><span className="contact-icon">💼</span><div className="contact-link-info"><span>GitHub</span><strong>@Sachin23991</strong></div></a>
+                            <a href="https://x.com/MandhiyaRao" target="_blank" rel="noreferrer" className="contact-link-card"><span className="contact-icon">𝕏</span><div className="contact-link-info"><span>X (Twitter)</span><strong>@MandhiyaRao</strong></div></a>
+                            <a href="https://www.instagram.com/sachinraomandhaiya23/" target="_blank" rel="noreferrer" className="contact-link-card"><span className="contact-icon">📸</span><div className="contact-link-info"><span>Instagram</span><strong>@sachinraomandhaiya23</strong></div></a>
                             <a href="https://huggingface.co/Sachin21112004" target="_blank" rel="noreferrer" className="contact-link-card"><span className="contact-icon">🤗</span><div className="contact-link-info"><span>Hugging Face</span><strong>@Sachin21112004</strong></div></a>
                         </div>
                     </motion.div>
@@ -774,10 +817,6 @@ export default function AnimatedApp() {
                 </MorphingTransition>
             </section>
 
-            {/* Footer */}
-            <footer className="footer">
-                <p>© {new Date().getFullYear()} Sachin. Built with React, Three.js, GSAP & Framer Motion.</p>
-            </footer>
         </div>
     );
 }

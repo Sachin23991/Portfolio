@@ -10,6 +10,7 @@ import {
 } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
 import emailjs from '@emailjs/browser';
+import { IconFooterNav } from './components/IconFooterNav';
 
 /* ─── Animation Variants ─── */
 const smoothEase = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number];
@@ -422,7 +423,7 @@ function App() {
     const scrollTo = useCallback((id: string) => {
         const target = document.getElementById(id);
         if (target && lenisRef.current) {
-            lenisRef.current.scrollTo(target, { offset: -80, duration: 1.6 });
+            lenisRef.current.scrollTo(target, { offset: -20, duration: 1.6 });
         }
     }, []);
 
@@ -469,24 +470,15 @@ function App() {
                 {showStatsPage && <StatsPage onClose={() => setShowStatsPage(false)} />}
             </AnimatePresence>
 
-            {/* ═══ NAVBAR ═══ */}
-            <motion.nav className="navbar" id="navbar" initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: smoothEase, delay: 0.2 }}>
-                <motion.span className="nav-brand" whileHover={{ scale: 1.1 }} transition={{ type: 'spring', stiffness: 400 }}>S.</motion.span>
-                <div className="nav-links">
-                    {['Home', 'Stats', 'About', 'Skills', 'Projects', 'Contact'].map((label, i) => (
-                        <motion.a key={label} href={`#${label === 'Home' ? 'entrance' : label.toLowerCase()}`} className="nav-link"
-                            initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.06 }}
-                            whileHover={{ y: -2 }} onClick={(e) => {
-                                e.preventDefault();
-                                if (label === 'Stats') { setShowStatsPage(true); }
-                                else { setShowStatsPage(false); scrollTo(label === 'Home' ? 'entrance' : label.toLowerCase()); }
-                            }}>
-                            {label}
-                        </motion.a>
-                    ))}
-                </div>
-                <MagneticButton href="/sachincv.pdf" download className="nav-resume-btn">Resume</MagneticButton>
-            </motion.nav>
+            {/* ═══ ICON FOOTER NAVIGATION ═══ */}
+            <IconFooterNav onNavigate={(id) => {
+                if (id === 'stats') {
+                    setShowStatsPage(true);
+                } else {
+                    setShowStatsPage(false);
+                    scrollTo(id);
+                }
+            }} />
 
             {/* ═══ HERO ═══ */}
             <section className="entrance-section" id="entrance">
@@ -854,10 +846,6 @@ function App() {
                     <p className="cta-subheading">I'm always open to discussing web dev or AI/ML opportunities.</p>
                     <MagneticButton href="mailto:sachinraosahab7@gmail.com" className="cta-main-btn">Let's Work Together</MagneticButton>
                 </motion.div>
-
-                <motion.footer className="footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }}>
-                    <p>© {new Date().getFullYear()} Sachin. Crafted with passion &amp; intelligence.</p>
-                </motion.footer>
             </section>
         </div>
     );
