@@ -275,14 +275,10 @@ function StatsPage({ onClose }: { onClose: () => void }) {
                 <motion.div className="stats-grid-row" variants={staggerContainer} initial="hidden" animate="visible">
                     <motion.div className="stat-card" variants={scaleIn} whileHover={{ y: -5 }}>
                         <div className="stat-icon">🧩</div>
-                        <h3 className="stat-value"><AnimatedCounter value={300} suffix="+" /></h3>
+                        <h3 className="stat-value"><AnimatedCounter value={340} suffix="+" /></h3>
                         <p className="stat-label">LeetCode Solved</p>
                     </motion.div>
-                    <motion.div className="stat-card" variants={scaleIn} whileHover={{ y: -5 }}>
-                        <div className="stat-icon">🏆</div>
-                        <h3 className="stat-value">2nd / 700+</h3>
-                        <p className="stat-label">Hackathon Rank</p>
-                    </motion.div>
+                    
                 </motion.div>
 
                 <p className="stats-source" style={{ marginTop: '2rem' }}>
@@ -378,8 +374,8 @@ const PROJECTS = [
 const ACHIEVEMENTS = [
     { icon: '🏆', title: '2nd Rank – Code ECarvan Hackathon', desc: 'Among 700+ participants', year: '2025' },
     { icon: '🤗', title: '35K+ Hugging Face Downloads', desc: 'Started in 2025 & growing freely as I provide open models/datasets', year: '2025 - Present' },
-    { icon: '🧩', title: '300+ LeetCode Problems Solved', desc: 'Strong DSA fundamentals', year: '2025' },
-    { icon: '💼', title: 'Freelance Financial App', desc: 'Built & deployed Loan Manager for real clients', year: '2025' },
+    { icon: '🧩', title: '340+ LeetCode Problems Solved', desc: 'Strong DSA fundamentals', year: '2025' },
+    
 ];
 
 /* ─── Main App Component ─── */
