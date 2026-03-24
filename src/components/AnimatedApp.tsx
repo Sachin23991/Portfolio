@@ -789,7 +789,12 @@ export default function AnimatedApp() {
                         <GlassCard className="edu-card" blur={12}>
                             <h3 className="edu-degree">Bachelor of Technology - CSE</h3>
                             <p className="edu-school">Lovely Professional University</p>
-                            <p className="edu-date">2023 - 2027</p>
+                            <p className="edu-date">2023 - Present | Pursuing | CGPA: 9.02</p>
+                        </GlassCard>
+                        <GlassCard className="edu-card" blur={12}>
+                            <h3 className="edu-degree">Higher Secondary (Class 12th)</h3>
+                            <p className="edu-school">Rao Khem Chand School</p>
+                            <p className="edu-date">2022 - 2023 | Percentage: 92%</p>
                         </GlassCard>
                     </motion.div>
                     <motion.div className="contact-column" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }} variants={fadeInLeft}>

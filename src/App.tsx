@@ -655,7 +655,7 @@ function App() {
                                 <h3 className="timeline-role">Freelance Full Stack Developer</h3>
                                 <div className="timeline-meta">
                                     <span className="timeline-company">GitHub (Freelance)</span>
-                                    <span className="timeline-date">Oct 2024 – Present</span>
+                                    <span className="timeline-date">Oct 2025 – Present</span>
                                 </div>
                                 <p className="timeline-desc">
                                     Developed <strong>Loan Manager</strong>, a private, full-stack financial application to manage
@@ -807,9 +807,9 @@ function App() {
                             <p className="edu-date">2023 – Present | CGPA: 9.02</p>
                         </motion.div>
                         <motion.div className="edu-card" initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.35 }}>
-                            <h4 className="edu-degree">Intermediate (Class 12th)</h4>
+                            <h4 className="edu-degree">Higher Secondary (Class 12th)</h4>
                             <p className="edu-school">Rao Khem Chand School</p>
-                            <p className="edu-date">2021 | Score: 92%</p>
+                            <p className="edu-date">2022 - 2023 | Percentage: 92</p>
                         </motion.div>
                     </motion.div>
 
